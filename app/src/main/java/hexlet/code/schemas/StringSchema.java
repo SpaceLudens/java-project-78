@@ -6,7 +6,7 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema required() {
-        this.predicates.put("запрет на пустую строку", s -> s != null && !s.isEmpty());
+        this.predicates.put("запрет на null", s -> s != null && !s.isEmpty());
         return this;
     }
 
