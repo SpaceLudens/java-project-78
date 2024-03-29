@@ -1,55 +1,34 @@
 package hexlet.code.schemas;
 
 
+import java.util.Collection;
+import java.util.Objects;
+import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema {
-    private boolean requiredFlag;
-    private boolean positiveFlag;
-    private boolean rangeFlag;
-    private Integer minRange;
-    private Integer maxRange;
-
+public class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema() {
-        this.requiredFlag = false;
-        this.positiveFlag = false;
-        this.rangeFlag = false;
-        this.minRange = null;
-        this.maxRange = null;
+        super();
     }
 
     public NumberSchema required() {
-        this.requiredFlag = true;
+        this.predicates.put("запрет на null", Objects::nonNull);
         return this;
     }
 
     public NumberSchema positive() {
-        this.positiveFlag = true;
+        Predicate<Integer> notNull = Objects::isNull;
+        Predicate<Integer> greaterThanZer0 = s -> s > 0;
+        this.predicates.put("только положительное число", notNull.or(greaterThanZer0));
         return  this;
     }
 
     public NumberSchema range(int min, int max) {
-        this.rangeFlag = true;
-        this.minRange = min;
-        this.maxRange = max;
+        this.predicates.put("допустимый диапазон", s -> (s >= min && s <= max));
         return this;
     }
 
-
     public boolean isValid(Integer data) {
-        if (requiredFlag && data == null) {
-            return false;
-        }
-        if (positiveFlag) {
-            if (!requiredFlag && data == null) {
-                return true;
-            }
-            if (data <= 0) {
-                return false;
-            }
-        }
-        if (rangeFlag && (data < minRange || data > maxRange)) {
-            return false;
-        }
-        return true;
+        Collection<Predicate<Integer>> values = predicates.values();
+        return values.stream().allMatch(p -> p.test(data));
     }
 }

@@ -1,43 +1,27 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema {
-
-    private boolean requiredFlag;
-    private Integer minLength;
-    private String containsSubstring;
-
+public class StringSchema extends BaseSchema<String> {
     public StringSchema() {
-        this.requiredFlag = false;
-        this.minLength = null;
-        this.containsSubstring = null;
+        super();
     }
 
     public StringSchema required() {
-        this.requiredFlag = true;
+        this.predicates.put("запрет на пустую строку", s -> s != null && !s.isEmpty());
         return this;
     }
 
     public StringSchema minLength(int length) {
-        this.minLength = length;
+        this.predicates.put("минимальная длина строки", s -> s.length() >= length);
         return this;
     }
 
-    public StringSchema contains(String substring) {
-        this.containsSubstring = substring;
+    public StringSchema contains(String data) {
+        this.predicates.put("строка содержит", s -> s.contains(data));
         return this;
     }
 
-
-    public boolean isValid(String data) {
-        if (requiredFlag && (data == null || data.isEmpty())) {
-            return false;
-        }
-        if (minLength != null && data.length() < minLength) {
-            return false;
-        }
-        if (containsSubstring != null && !data.contains(containsSubstring)) {
-            return false;
-        }
-        return true;
+    @Override
+    public boolean isValid(String value) {
+        return super.isValid(value);
     }
 }
