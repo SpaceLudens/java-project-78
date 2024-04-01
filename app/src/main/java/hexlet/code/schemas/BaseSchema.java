@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema<T> {
+public class BaseSchema<T> {
     private final Map<String, Predicate<T>> predicates;
 
     public final Map<String, Predicate<T>> getPredicates() {
@@ -16,6 +16,10 @@ public abstract class BaseSchema<T> {
         this.predicates = new HashMap<>();
     }
 
+    /**
+     * @param value
+     * @return boolean;
+     */
     public boolean isValid(T value) {
         Collection<Predicate<T>> values = predicates.values();
         return values.stream().allMatch(p -> p.test(value));
