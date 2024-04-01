@@ -1,11 +1,16 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
+import hexlet.code.Validator;
+
+import java.util.Map;
+import  java.util.HashMap;
 import java.util.Objects;
 
-public class MapSchema extends BaseSchema<HashMap<String, String>> {
+public class MapSchema extends BaseSchema<Map<String, String>> {
+    private Map<String, BaseSchema<String>> schemas;
     public MapSchema() {
         super();
+        schemas = new HashMap<>();
     }
 
     public MapSchema required() {
@@ -14,11 +19,33 @@ public class MapSchema extends BaseSchema<HashMap<String, String>> {
     }
 
     public MapSchema sizeof(Integer size) {
-        this.predicates.put("ограничение на разме Map", s -> s.size() == size);
+        this.predicates.put("ограничение на размер Map", s -> s.size() == size);
         return this;
     }
+
+    public MapSchema shape(Map<String, BaseSchema<String>> sch) {
+        schemas = sch;
+        return this;
+    }
+
     @Override
-    public boolean isValid(HashMap<String, String> value) {
-        return super.isValid(value);
+    public boolean isValid(Map<String, String> value) {
+        var v = new Validator();
+        var schema = v.string();
+        boolean result = true;
+        if (super.isValid(value)) {
+            for (Map.Entry<String, BaseSchema<String>> entry : schemas.entrySet()) {
+                if (value.containsKey(entry.getKey())) {
+                    if (value.containsValue(null)) {
+                        return false;
+                    }
+                    schema = (StringSchema) entry.getValue();
+                    result = schema.isValid(value.get(entry.getKey()));
+                }
+            }
+        } else {
+            result = false;
+        }
+        return result;
     }
 }
