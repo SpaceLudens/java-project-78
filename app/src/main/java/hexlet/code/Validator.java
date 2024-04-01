@@ -4,11 +4,11 @@ import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 
-public class Validator {
-    StringSchema stringSchema;
-    NumberSchema numberSchema;
+public final class Validator {
+    private StringSchema stringSchema;
+    private NumberSchema numberSchema;
 
-    MapSchema mapSchema;
+    private MapSchema mapSchema;
 
     public StringSchema string() {
         this.stringSchema = new StringSchema();

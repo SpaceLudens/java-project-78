@@ -6,14 +6,14 @@ import java.util.Map;
 import  java.util.HashMap;
 import java.util.Objects;
 
-public class MapSchema extends BaseSchema<Map<String, String>> {
+public final class MapSchema extends BaseSchema<Map<String, String>> {
     private Map<String, BaseSchema<String>> schemas;
     public MapSchema() {
         super();
         schemas = new HashMap<>();
     }
 
-    public MapSchema required() {
+    public  MapSchema required() {
         this.predicates.put("запрет на null", Objects::nonNull);
         return this;
     }

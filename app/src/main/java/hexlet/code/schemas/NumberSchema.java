@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
     public NumberSchema() {
         super();
     }
