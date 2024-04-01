@@ -11,24 +11,23 @@ public final class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema required() {
-        this.predicates.put("запрет на null", Objects::nonNull);
+        getPredicates().put("запрет на null", Objects::nonNull);
         return this;
     }
 
     public NumberSchema positive() {
         Predicate<Integer> notNull = Objects::isNull;
         Predicate<Integer> greaterThanZer0 = s -> s > 0;
-        this.predicates.put("только положительное число", notNull.or(greaterThanZer0));
+        getPredicates().put("только положительное число", notNull.or(greaterThanZer0));
         return  this;
     }
 
     public NumberSchema range(int min, int max) {
-        this.predicates.put("допустимый диапазон", s -> (s >= min && s <= max));
+        getPredicates().put("допустимый диапазон", s -> (s >= min && s <= max));
         return this;
     }
 
     public boolean isValid(Integer data) {
-        Collection<Predicate<Integer>> values = predicates.values();
-        return values.stream().allMatch(p -> p.test(data));
+        return super.isValid(data);
     }
 }

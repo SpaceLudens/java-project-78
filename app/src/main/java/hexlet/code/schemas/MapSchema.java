@@ -14,12 +14,12 @@ public final class MapSchema extends BaseSchema<Map<String, String>> {
     }
 
     public  MapSchema required() {
-        this.predicates.put("запрет на null", Objects::nonNull);
+        getPredicates().put("запрет на null", Objects::nonNull);
         return this;
     }
 
     public MapSchema sizeof(Integer size) {
-        this.predicates.put("ограничение на размер Map", s -> s.size() == size);
+        getPredicates().put("ограничение на размер Map", s -> s.size() == size);
         return this;
     }
 

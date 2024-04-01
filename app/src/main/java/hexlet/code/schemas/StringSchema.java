@@ -6,17 +6,17 @@ public final class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema required() {
-        this.predicates.put("запрет на null", s -> s != null && !s.isEmpty());
+        getPredicates().put("запрет на null", s -> s != null && !s.isEmpty());
         return this;
     }
 
     public StringSchema minLength(int length) {
-        this.predicates.put("минимальная длина строки", s -> s.length() >= length);
+        getPredicates().put("минимальная длина строки", s -> s.length() >= length);
         return this;
     }
 
     public StringSchema contains(String data) {
-        this.predicates.put("строка содержит", s -> s.contains(data));
+        getPredicates().put("строка содержит", s -> s.contains(data));
         return this;
     }
 
