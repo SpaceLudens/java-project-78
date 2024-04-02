@@ -15,21 +15,19 @@
     
   3.  **Создать объект валидатора:** Создайте объект валидатора с помощью конструктора Validator()`:
 
-`Validator validator = new Validator();` 
+    Validator validator = new Validator();
 
 4.  **Настроить схемы валидации:** Настройте схемы валидации, вызвав соответствующие методы объекта валидатора.
 Для валидации строк:
 
-`StringSchema stringSchema = validator.string().required().minLength(3);` 
+    StringSchema stringSchema = validator.string().required().minLength(3);
 
 Для валидации чисел:
 
-`NumberSchema numberSchema = validator.number().required().positive().range(5, 10);` 
+    NumberSchema numberSchema = validator.number().required().positive().range(5, 10);
 
 Для валидации объектов типа Map:
 
-`MapSchema mapSchema = validator.map().required().sizeof(2);` 
+    MapSchema mapSchema = validator.map().required().sizeof(2);
 
 5.  **Проверить данные:** Проверьте корректность данных, вызвав метод `isValid()` на соответствующей схеме валидации. 
-
-
