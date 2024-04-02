@@ -18,7 +18,7 @@
     Validator validator = new Validator();
 
 4.  **Настроить схемы валидации:** Настройте схемы валидации, вызвав соответствующие методы объекта валидатора.
-Для валидации строк:
+Для валидации строк:  
 
     StringSchema stringSchema = validator.string().required().minLength(3);
 
