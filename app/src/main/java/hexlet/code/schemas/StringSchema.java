@@ -1,10 +1,6 @@
 package hexlet.code.schemas;
 
 public final class StringSchema extends BaseSchema<String> {
-    public StringSchema() {
-        super();
-    }
-
     public StringSchema required() {
         getPredicates().put("запрет на null", s -> s != null && !s.isEmpty());
         return this;
@@ -20,7 +16,6 @@ public final class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    @Override
     public boolean isValid(String value) {
         return super.isValid(value);
     }

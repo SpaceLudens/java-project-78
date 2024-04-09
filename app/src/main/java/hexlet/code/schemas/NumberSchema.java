@@ -4,10 +4,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 public final class NumberSchema extends BaseSchema<Integer> {
-    public NumberSchema() {
-        super();
-    }
-
     public NumberSchema required() {
         getPredicates().put("запрет на null", Objects::nonNull);
         return this;

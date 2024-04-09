@@ -16,10 +16,6 @@ public class BaseSchema<T> {
         this.predicates = new HashMap<>();
     }
 
-    /**
-     * @param value
-     * @return boolean;
-     */
     public boolean isValid(T value) {
         Collection<Predicate<T>> values = predicates.values();
         return values.stream().allMatch(p -> p.test(value));

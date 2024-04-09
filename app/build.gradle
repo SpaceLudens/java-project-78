@@ -1,5 +1,5 @@
 plugins {
-    id 'application'
+    id 'java'
     id 'checkstyle'
     id 'jacoco'
     id 'com.github.mrsarm.jshell.plugin' version '1.2.1'
@@ -12,9 +12,6 @@ repositories {
     mavenCentral()
 }
 
-application {
-    mainClass = "hexlet.code.Validator"
-}
 
 jacoco {
     toolVersion = "0.8.10"
