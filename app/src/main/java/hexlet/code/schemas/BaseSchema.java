@@ -16,6 +16,12 @@ public class BaseSchema<T> {
         this.predicates = new HashMap<>();
     }
 
+    /**
+ * Проверяет, удовлетворяет ли значение переданным предикатам.
+ *
+ * @param value значение, которое требуется проверить
+ * @return {@code true}, если значение удовлетворяет всем предикатам, {@code false} в противном случае
+ */
     public boolean isValid(T value) {
         Collection<Predicate<T>> values = predicates.values();
         return values.stream().allMatch(p -> p.test(value));
